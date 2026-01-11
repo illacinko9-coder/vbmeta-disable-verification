@@ -1,0 +1,25 @@
+name: Patch VBMeta
+
+on:
+  workflow_dispatch:
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: sudo apt update && sudo apt install -y python3 python3-pip lz4
+
+      - name: Patch vbmeta
+        run: |
+          mkdir -p build
+          python3 patch-vbmeta.py input/vbmeta.img build/vbmeta_patched.img
+
+      - name: Upload patched vbmeta
+        uses: actions/upload-artifact@v4
+        with:
+          name: vbmeta_patched
+          path: build/vbmeta_patched.img
