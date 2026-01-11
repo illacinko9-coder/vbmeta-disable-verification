@@ -23,3 +23,8 @@ jobs:
         with:
           name: vbmeta_patched
           path: build/vbmeta_patched.img
+- name: Patch vbmeta
+  run: |
+    mkdir -p build
+    ls input
+    python3 patch-vbmeta.py input/vbmeta.img build/vbmeta_patched.img
